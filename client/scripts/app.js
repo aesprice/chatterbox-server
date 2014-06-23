@@ -22,7 +22,7 @@ var app = {
   currentRoom: null,
   userName: null,
 
-  server: 'https://api.parse.com/1/classes/chatterbox',
+  server: 'http://127.0.0.1:3000',
 
   displayUserInput: function() {
     var $textbox = $('<input type="text" placeholder="Enter your username to chat..." id="username-input"></input>');
@@ -84,12 +84,12 @@ var app = {
   },
 
   fetch: function(){
-    var urlOptions = '?order=-createdAt';
-    if(app.currentRoom !== null){
-      urlOptions += '&where={"roomname":"' + app.currentRoom + '"}';
-    }
+    // var urlOptions = '?order=-createdAt';
+    // if(app.currentRoom !== null){
+      //urlOptions += '&where={"roomname":"' + app.currentRoom + '"}';
+    // }
     $.ajax({
-      url: app.server + urlOptions,
+      url: app.server,
       type: 'GET',
       success: function(data){
         app.processFetchedData(data);
