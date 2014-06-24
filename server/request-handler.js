@@ -19,7 +19,6 @@ exports.handler = function(request, response) {
 
 
   if(request.method === 'GET' && request.url.split('/')[1] === 'classes' ){
-  // if(request.method === 'GET'){
     statusCode = 200;
   }else if(request.method === 'POST'){
     statusCode = 201;

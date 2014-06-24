@@ -9,5 +9,6 @@ var app = express();
 app.use(express.static(__dirname + '/client'));
 
 app.get('/classes', handler);
+app.post('/classes', handler);
 
 app.listen(port);
