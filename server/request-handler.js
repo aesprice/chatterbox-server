@@ -30,6 +30,8 @@ exports.handler = function(request, response) {
     request.on('end', function(){
       messages.push(JSON.parse(body));
     });
+  } else if(request.method === 'OPTIONS') {
+    statusCode = 200;
   }
 
   /* Without this line, this server wouldn't work. See the note
@@ -65,4 +67,20 @@ var defaultCorsHeaders = {
   "access-control-max-age": 10 // Seconds.
 };
 
-var messages = [];
+var messages = [
+  {
+    username: 'TommyWiseau',
+    roomname: 'theRoom',
+    text: 'YOU ARE TEARING ME APART LISA'
+  },
+  {
+    username: 'bob',
+    roomname: 'theRoom',
+    text: 'wooper dooper doo'
+  },
+  {
+    username: 'userman',
+    roomname: 'theRoom',
+    text: 'sending you a massage'
+  }
+];
