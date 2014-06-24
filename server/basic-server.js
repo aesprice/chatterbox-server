@@ -23,6 +23,10 @@ var server = http.createServer(handler);
 console.log("Listening on http://" + ":" + port);
 server.listen(port);
 
+setInterval(function(){
+  console.log("I'M STILL ALIVE");
+}, 10000);
+
 /* To start this server, run:
      node basic-server.js
  *  on the command line.
