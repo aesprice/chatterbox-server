@@ -59,10 +59,10 @@ exports.handler = function(request, response) {
  * like file://your/chat/client/index.html, which is considered a
  * different domain.) */
 var defaultCorsHeaders = {
-  "access-control-allow-origin": "*",
-  "access-control-allow-methods": "GET, POST, PUT, DELETE, OPTIONS",
-  "access-control-allow-headers": "content-type, accept",
-  "access-control-max-age": 10 // Seconds.
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+  "Access-Control-Allow-Headers": "content-type, accept",
+  "Access-Control-Max-Age": 10 // Seconds.
 };
 
 var messages = [];
