@@ -5,7 +5,7 @@
  * this file and include it in basic-server.js so that it actually works.
  * *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html. */
 
-exports.handleRequest = function(request, response) {
+exports.handler = function(request, response) {
   /* the 'request' argument comes from nodes http module. It includes info about the
   request - such as what URL the browser is requesting. */
 
@@ -15,7 +15,22 @@ exports.handleRequest = function(request, response) {
 
   console.log("Serving request type " + request.method + " for url " + request.url);
 
-  var statusCode = 200;
+  var statusCode = 404;
+
+
+  if(request.method === 'GET' && request.url.split('/')[1] === 'classes' ){
+    statusCode = 200;
+  }else if(request.method === 'POST'){
+    statusCode = 201;
+    var body = '';
+    request.on('data', function(data){
+      body += data;
+    });
+
+    request.on('end', function(){
+      messages.push(JSON.parse(body));
+    });
+  }
 
   /* Without this line, this server wouldn't work. See the note
    * below about CORS. */
@@ -32,13 +47,7 @@ exports.handleRequest = function(request, response) {
    * up in the browser.*/
 
   var message = {
-    results: [
-      {
-        roomname: 'floor_6',
-        username: 'user-man',
-        text: 'why hello there'
-      }
-    ]
+    results: messages
   };
 
   response.end(JSON.stringify(message));
@@ -55,3 +64,5 @@ var defaultCorsHeaders = {
   "access-control-allow-headers": "content-type, accept",
   "access-control-max-age": 10 // Seconds.
 };
+
+var messages = [];

@@ -22,7 +22,7 @@ var app = {
   currentRoom: null,
   userName: null,
 
-  server: 'http://127.0.0.1:3000',
+  server: 'http://127.0.0.1:3000/classes/messages',
 
   displayUserInput: function() {
     var $textbox = $('<input type="text" placeholder="Enter your username to chat..." id="username-input"></input>');
@@ -78,7 +78,7 @@ var app = {
       success: function(data){
       },
       error: function(data){
-        console.error('you wost da game');
+        console.error('could not send');
       }
     });
   },
