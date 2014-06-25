@@ -4,6 +4,9 @@
  * You'll have to figure out a way to export this function from
  * this file and include it in basic-server.js so that it actually works.
  * *Hint* Check out the node module documentation at http://nodejs.org/api/modules.html. */
+var dbFileName = 'db.json';
+var db = require(dbFileName);
+var fs = require('fs');
 
 exports.handler = function(request, response) {
   /* the 'request' argument comes from nodes http module. It includes info about the
@@ -28,7 +31,11 @@ exports.handler = function(request, response) {
     });
 
     request.on('end', function(){
-      messages.push(JSON.parse(body));
+      db.unshift(JSON.parse(body));
+      fs.writeFile(dbFileName, JSON.stringify(db, null, 2), function (err) {
+        if (err) throw err;
+          console.log('It\'s saved!');
+      });
     });
   } else if(request.method === 'OPTIONS') {
     statusCode = 200;
@@ -48,11 +55,11 @@ exports.handler = function(request, response) {
    * response.end() will be the body of the response - i.e. what shows
    * up in the browser.*/
 
-  var message = {
-    results: messages
+  var messages = {
+    results: db
   };
 
-  response.end(JSON.stringify(message));
+  response.end(JSON.stringify(messages));
 };
 
 /* These headers will allow Cross-Origin Resource Sharing (CORS).
@@ -67,20 +74,20 @@ var defaultCorsHeaders = {
   "Access-Control-Max-Age": 10 // Seconds.
 };
 
-var messages = [
-  {
-    username: 'TommyWiseau',
-    roomname: 'theRoom',
-    text: 'YOU ARE TEARING ME APART LISA'
-  },
-  {
-    username: 'bob',
-    roomname: 'theRoom',
-    text: 'wooper dooper doo'
-  },
-  {
-    username: 'userman',
-    roomname: 'theRoom',
-    text: 'sending you a massage'
-  }
-];
+// var messages = [
+//   {
+//     username: 'TommyWiseau',
+//     roomname: 'theRoom',
+//     text: 'YOU ARE TEARING ME APART LISA'
+//   },
+//   {
+//     username: 'bob',
+//     roomname: 'theRoom',
+//     text: 'wooper dooper doo'
+//   },
+//   {
+//     username: 'userman',
+//     roomname: 'theRoom',
+//     text: 'sending you a massage'
+//   }
+// ];
